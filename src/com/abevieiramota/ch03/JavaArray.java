@@ -88,4 +88,5 @@ public class JavaArray {
 		oArrayzao[0] = new int[10];
 		oArrayzao[1] = new int[3];
 	}
+	
 }
