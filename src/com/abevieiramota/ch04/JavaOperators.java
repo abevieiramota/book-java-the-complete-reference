@@ -1,7 +1,10 @@
 package com.abevieiramota.ch04;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.EnumSet;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -205,4 +208,149 @@ public class JavaOperators {
 		assertEquals(a, c);
 		assertEquals(a, d);
 	}
+
+	@Test
+	public void testUnsignedRightShift() {
+
+		int a = -1;
+		int b = a >>> 24;
+		int c = a >> 24;
+
+		System.out.println(Integer.toBinaryString(a));
+		System.out.println(Integer.toBinaryString(b));
+		assertEquals(255, b);
+		assertEquals(a, c);
+	}
+
+	@Test
+	public void testCompoundBinaryOperator() {
+
+		int a = 1234;
+		a |= 23;
+
+		System.out.println(a);
+	}
+
+	@Test
+	public void testEnumMasking() {
+
+		int a = 1;
+		int b = 2;
+		int c = 4;
+		int d = 8;
+
+		int f = 12;
+
+		int e = a | b | c;
+
+		assertTrue((e & a) == a);
+		assertTrue((e & b) == b);
+		assertTrue((e & c) == c);
+		assertFalse((e & d) == d);
+		assertFalse((e & f) == f);
+	}
+
+	private static int TO_UPPER = 1;
+	private static int TRIM = 2;
+	private static int REMOVE_FIRST_LETTER = 4;
+	private static int ALL = 7;
+
+	// notar que não há ordem
+	private String doChange(String str, int flags) {
+
+		String result = str;
+
+		if ((flags & TO_UPPER) == TO_UPPER) {
+			result = result.toUpperCase();
+		}
+
+		if ((flags & TRIM) == TRIM) {
+			result = result.trim();
+		}
+
+		if ((flags & REMOVE_FIRST_LETTER) == REMOVE_FIRST_LETTER) {
+			result = result.substring(1);
+		}
+
+		return result;
+	}
+
+	@Test
+	public void testFlagMasking() {
+
+		String original = "Ola gente ";
+
+		assertEquals("OLA GENTE ", doChange(original, TO_UPPER));
+		assertEquals("Ola gente", doChange(original, TRIM));
+		assertEquals("la gente ", doChange(original, REMOVE_FIRST_LETTER));
+		assertEquals("LA GENTE ", doChange(original, REMOVE_FIRST_LETTER | TO_UPPER));
+		assertEquals("LA GENTE", doChange(original, ALL));
+	}
+
+	/**
+	 * http://eddmann.com/posts/using-bit-flags-and-enumsets-in-java/
+	 *
+	 */
+	public enum Flag {
+
+		TO_UPPER, TRIM, REMOVE_FIRST_LETTER, ALL;
+		
+		public static final EnumSet<Flag> ALL_OPTS = EnumSet.allOf(Flag.class);
+	}
+	
+	private String doChange2(String str, EnumSet<Flag> flags) {
+
+		String result = str;
+
+		if (flags.contains(Flag.TO_UPPER)) {
+			result = result.toUpperCase();
+		}
+
+		if (flags.contains(Flag.TRIM)) {
+			result = result.trim();
+		}
+
+		if (flags.contains(Flag.REMOVE_FIRST_LETTER)) {
+			result = result.substring(1);
+		}
+
+		return result;
+	}
+	
+	@Test
+	public void testFlagMasking2() {
+
+		String original = "Ola gente ";
+
+		assertEquals("OLA GENTE ", doChange2(original, EnumSet.of(Flag.TO_UPPER)));
+		assertEquals("Ola gente", doChange2(original, EnumSet.of(Flag.TRIM)));
+		assertEquals("la gente ", doChange2(original, EnumSet.of(Flag.REMOVE_FIRST_LETTER)));
+		assertEquals("LA GENTE ", doChange2(original, EnumSet.of(Flag.TO_UPPER, Flag.REMOVE_FIRST_LETTER)));
+		assertEquals("LA GENTE", doChange2(original, Flag.ALL_OPTS));
+	}
+	
+	@Test
+	public void testBooleanAnd() {
+		
+		int a = 0;
+		assertTrue(true | ++a == 1);
+		assertEquals(1, a);
+		// short circuit
+		a = 0;
+		assertTrue(true || ++a == 1);
+		assertEquals(0, a);
+	}
+	
+	@Test
+	public void testChainAssignment() {
+		
+		int a, b, c;
+		int dez = 10;
+		a = b = c = dez;
+		
+		assertEquals(dez, a);
+		assertEquals(dez, b);
+		assertEquals(dez, c);
+	}
+
 }
