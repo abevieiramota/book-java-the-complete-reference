@@ -1,4 +1,4 @@
-package com.abevieiramota.ch06;
+package com.abevieiramota.ch07;
 
 import static org.junit.Assert.assertEquals;
 
