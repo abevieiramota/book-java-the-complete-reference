@@ -45,4 +45,24 @@ public class TestB {
 	public void quemVemPrimeiro() {
 		new MasQueHierarquiaFeia();
 	}
+	
+	@Test
+	public void testOverride() {
+		B b = new B(99, 22, 33);
+		C c = new C();
+		A ba = b;
+		A ca = c;
+		
+		assertEquals(20, b.overrida());
+		assertEquals(20, ba.overrida());
+		assertEquals(30, c.overrida());
+		assertEquals(30, ca.overrida());
+	}
+	
+	@Test
+	public void testOverload() {
+		B b = new B(99, 22, 33);
+		assertEquals(10, b.overloada(123123));
+		assertEquals(20, b.overloada(123f));
+	}
 }

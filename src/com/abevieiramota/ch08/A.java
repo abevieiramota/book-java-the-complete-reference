@@ -13,4 +13,12 @@ public class A {
 		return this.i + this.j;
 	}
 	
+	int overrida() {
+		return 10;
+	}
+	
+	int overloada(int x) {
+		return 10;
+	}
+	
 }

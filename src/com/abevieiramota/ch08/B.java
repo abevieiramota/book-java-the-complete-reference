@@ -23,4 +23,12 @@ public class B extends A {
 
 		return super.i;
 	}
+	
+	int overrida() {
+		return 20;
+	}
+	
+	int overloada(float f) {
+		return 20;
+	}
 }
