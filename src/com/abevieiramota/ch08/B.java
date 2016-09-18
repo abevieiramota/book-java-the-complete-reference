@@ -6,7 +6,13 @@ public class B extends A {
 
 	public B(int i, int j, int k) {
 		super(i, j);
+//		this(i); não pode!
 		this.i = k;
+	}
+	
+	public B(int i) {
+		super(i, 0);
+		this.i = i;
 	}
 
 	void showk() {
