@@ -225,14 +225,14 @@ public class JavaBuiltinsTest {
 	
 	@Test(expected = NoSuchFieldException.class)
 	public void testNoSuchFieldException() throws NoSuchFieldException {
-		// TODO: quando vir reflection
-		throw new NoSuchFieldException();
+		JavaBuiltinsTest obj = new JavaBuiltinsTest();
+		obj.getClass().getField("ahussuhahuas");
 	}
 	
 	@Test(expected = NoSuchMethodException.class)
 	public void testNoSuchMethodException() throws NoSuchMethodException {
-		// TODO: quando vir reflection
-		throw new NoSuchMethodException();
+		JavaBuiltinsTest obj = new JavaBuiltinsTest();
+		obj.getClass().getMethod("ahussuhahuas");
 	}
 	
 	@Test(expected = ReflectiveOperationException.class)
