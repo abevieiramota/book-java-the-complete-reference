@@ -143,4 +143,92 @@ public class StringTest {
 		assertEquals("!bcdefghi!", abcd.replace('a', '!'));
 		assertEquals("yyyyefghia", abcd.replace("abcd", "yyyy"));
 	}
+	
+	@Test
+	public void testStringBuffer() {
+		StringBuffer sb = new StringBuffer();
+		for(long i = 0L; i < 10000000L; i++) {
+			sb.append('1');
+		}
+	}
+	
+	@Test
+	public void testStringBufferInitialCapacity() {
+		StringBuffer sb = new StringBuffer(10000000);
+		for(long i = 0L; i < 10000000L; i++) {
+			sb.append('1');
+		}
+	}
+	
+	@Test
+	public void testStringBufferCapacity() {
+		StringBuffer sb = new StringBuffer();
+		int capacity = sb.capacity();
+		System.out.println("Não prealoquei! inicial =" + capacity);
+		for(long i = 0L; i < 100L; i++) {
+			sb.append(i);
+			int newCapacity = sb.capacity();
+			if(newCapacity != capacity) {
+				System.out.println(newCapacity);
+				capacity = newCapacity;
+			}
+		}
+	}
+	
+	@Test
+	public void testStringBufferInitialCapacity2() {
+		StringBuffer sb = new StringBuffer(192);
+		int capacity = sb.capacity();
+		System.out.println("Prealoquei! inicial = " + capacity);
+		for(long i = 0L; i < 100L; i++) {
+			sb.append(i);
+			int newCapacity = sb.capacity();
+			if(newCapacity != capacity) {
+				System.out.println(newCapacity);
+				capacity = newCapacity;
+			}
+		}
+	}
+	
+	@Test
+	public void testStringBufferEnsureCapacity() {
+		StringBuffer sb = new StringBuffer();
+		sb.ensureCapacity(192);
+		int capacity = sb.capacity();
+		System.out.println("Não prealoquei, mas ensurei! inicial = " + capacity);
+		for(long i = 0L; i < 100L; i++) {
+			sb.append(i);
+			int newCapacity = sb.capacity();
+			if(newCapacity != capacity) {
+				System.out.println(newCapacity);
+				capacity = newCapacity;
+			}
+		}
+	}
+	
+	@Test
+	public void testSetLength() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Abelardo Vieira Mota");
+		sb.setLength(8);
+		
+		assertEquals("Abelardo", sb.toString());
+	}
+	
+	@Test
+	public void testDelete() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Abelardo Vieira Mota");
+		StringBuffer resto = sb.delete(8, sb.length());
+		assertEquals("Abelardo", resto.toString());
+		assertEquals("Abelardo", sb.toString());
+	}
+	
+	@Test
+	public void testTrimToSize() {
+		StringBuffer sb = new StringBuffer("Hello");
+		assertEquals(21, sb.capacity());
+		sb.trimToSize();
+		assertEquals(5, sb.capacity());
+	}
 }
