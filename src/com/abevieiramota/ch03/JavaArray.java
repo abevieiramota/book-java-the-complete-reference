@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -88,5 +90,28 @@ public class JavaArray {
 		oArrayzao[0] = new int[10];
 		oArrayzao[1] = new int[3];
 	}
-	
+
+	@Test
+	public void testCopy() {
+		Object[] arr = new Object[1000000];
+		for (int i = 0; i < 1000000; i++) {
+			arr[i] = i;
+		}
+		for (int j = 0; j < 1000; j++) {
+			Object[] copy = Arrays.copyOfRange(arr, 0, 1000000);
+		}
+	}
+
+	@Test
+	public void testCopy2() {
+		Object[] arr = new Object[1000000];
+		for (int i = 0; i < 1000000; i++) {
+			arr[i] = i;
+		}
+		Object[] copy = new Object[1000000];
+		for (int j = 0; j < 1000; j++) {
+			System.arraycopy(arr, 0, copy, 0, 1000000);
+		}
+	}
+
 }
