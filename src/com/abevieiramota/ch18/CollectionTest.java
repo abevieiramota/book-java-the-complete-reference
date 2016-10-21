@@ -111,6 +111,5 @@ public class CollectionTest {
 		assertArrayEquals(nomesArr, nomesArr2);
 		String[] nomesArr3 = nomes.toArray(new String[10]);
 		assertArrayEquals(Arrays.copyOf(nomesArr, 10), nomesArr3);
-		
 	}
 }
